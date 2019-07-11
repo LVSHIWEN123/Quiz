@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <h1>Welcome to the Quiz Game!</h1>
+    <p>Rules 1: Please Answer Question One By One</p>
+    <p>Rules 2: Please Answer All Questions</p>
+    <span>Time Remaining:</span>
+    <span>30 </span>
+    <span>Seconds</span>
+    <button>Restart The Game</button>
+    <h3>1. Which of the following city is the capital city of China? </h3>
+    <div id="q_1">
+        <input type="checkbox" name="" id="">Beijing
+        <input type="checkbox" name="" id="">Shanghai
+        <input type="checkbox" name="" id="">Hong Kong
+    </div>
+
+    <h3>2. Which of the following city is the capital city of Canada? </h3>
+    <div id="q_2">
+        <input type="checkbox" name="" id="">Ottawa
+        <input type="checkbox" name="" id="">Toronto
+        <input type="checkbox" name="" id="">Montreal
+    </div>
+
+    <h3>3. Which of the following city is the capital city of US? </h3>
+    <div id="q_3">
+        <input type="checkbox" name="" id="">New York
+        <input type="checkbox" name="" id="">Washington
+        <input type="checkbox" name="" id="">Chicago
+    </div>
+
+    <h3>4. Which of the following city is the capital city of UK? </h3>
+    <div id="q_4">
+        <input type="checkbox" name="" id="">London
+        <input type="checkbox" name="" id="">Paris
+        <input type="checkbox" name="" id="">Manchester
+    </div>
+    <br>
+    <br>
+    <span>Right:</span>
+    <span id="right"></span>
+    <div></div>
+    <span>Wrong:</span>
+    <span id="wrong"></span>
+    <div></div>
+    <span>Unanswered:</span>
+    <span id="unanswered"></span>
+</body>
+<script>
+    $(document).ready(function () {
+        var count = 30;
+        var right = 0;
+        var wrong = 0;
+        var unanswered;
+        $('input[type="checkbox"]').on('change', function () {
+            $(this).siblings('input[type="checkbox"]').prop('checked', false);
+        });
+        $('button').click(function () {
+            location.reload();
+        })
+        var timer = setInterval(() => {
+            count--;
+            $('span').eq(1).text(count);
+            if (count == 0) {
+                if ($('#q_1').children().eq(0).prop('checked')) {
+                    right++;
+                } else if ($('#q_1').children().eq(1).prop('checked') || $('#q_1').children().eq(2)
+                    .prop(
+                        'checked')) {
+                    wrong++;
+                }
+
+                if ($('#q_2').children().eq(0).prop('checked')) {
+                    right++;
+                } else if ($('#q_2').children().eq(1).prop('checked') || $('#q_2').children().eq(2)
+                    .prop(
+                        'checked')) {
+                    wrong++;
+                }
+
+                if ($('#q_3').children().eq(1).prop('checked')) {
+                    right++;
+                } else if ($('#q_3').children().eq(0).prop('checked') || $('#q_3').children().eq(2)
+                    .prop(
+                        'checked')) {
+                    wrong++;
+                }
+
+                if ($('#q_4').children().eq(0).prop('checked')) {
+                    right++;
+                } else if ($('#q_4').children().eq(1).prop('checked') || $('#q_4').children().eq(2)
+                    .prop(
+                        'checked')) {
+                    wrong++;
+                }
+                unanswered = 4 - right - wrong;
+                $('#right').text(right);
+                $('#wrong').text(wrong);
+                $('#unanswered').text(unanswered);
+                clearInterval(timer);
+                alert("Game Over");
+            }
+        }, 1000);
+
+    })
+</script>
+
+</html>
